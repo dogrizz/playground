@@ -8,6 +8,7 @@ import pl.dzmitrow.playground.model.Greeting;
 import pl.dzmitrow.playground.repositories.GreetingsRepository;
 
 @RestController
+@RequestMapping("api")
 public class ApiController {
 
     @Autowired
