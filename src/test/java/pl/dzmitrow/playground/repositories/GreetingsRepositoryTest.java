@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -27,4 +29,18 @@ public class GreetingsRepositoryTest {
         greetingsRepository.findAll().forEach(x -> greetins.add(x));
         assertEquals(1,greetins.size());
     }
+
+    @Test
+    public void queryMethodTest(){
+        Greeting greeting = greetingsRepository.findByLanguage("Orcish");
+        assertNotNull(greeting);
+    }
+
+    @Test
+    public void queryMethodEmptyResultTest(){
+        Greeting greeting = greetingsRepository.findByLanguage("Elven");
+        assertNull(greeting);
+
+    }
+
 }

@@ -1,9 +1,8 @@
 package pl.dzmitrow.playground.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.dzmitrow.playground.model.Greeting;
 import pl.dzmitrow.playground.repositories.GreetingsRepository;
 
@@ -11,17 +10,24 @@ import pl.dzmitrow.playground.repositories.GreetingsRepository;
 @RequestMapping("api")
 public class ApiController {
 
+    private static final Logger log = Logger.getLogger(ApiController.class);
+
     @Autowired
     private GreetingsRepository greetingsRepository;
 
-    @RequestMapping(path = "/hello", method = RequestMethod.GET)
+    @GetMapping("/hello")
     public String hello() {
         return "Lok'tar Ogar!";
     }
 
-    @RequestMapping(path = "/greetings", method = RequestMethod.GET)
+    @GetMapping("/greetings")
     public Iterable<Greeting> getGreetings() {
         return greetingsRepository.findAll();
+    }
+
+    @GetMapping(value = "/greetings/{language}")
+    public Greeting getGreetingsByLanguage(@PathVariable String language) {
+        return greetingsRepository.findByLanguage(language);
     }
 
 
